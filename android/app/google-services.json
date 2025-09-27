@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "815165511973",
+    "project_id": "weddinghall-8a1f2",
+    "storage_bucket": "weddinghall-8a1f2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815165511973:android:c460058e4f5a5d6de8a2cc",
+        "android_client_info": {
+          "package_name": "com.example.wedding_hall"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADkA8RhIFu86AdR81f0uU_QxcPCNPO6pg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
