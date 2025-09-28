@@ -12,8 +12,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
-    );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(body:
+      Container(child: Image(
+          image: AssetImage(
+
+              "assets/images/photo_2025-09-14_18-35-42.jpg"))),
+      ));
   }
 }
