@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:wedding_hall/features/auth/presentation/pages/splash_screen.dart';
 import 'package:wedding_hall/firebase_options.dart';
 
 void main() async {
@@ -12,13 +14,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
+      title: 'قصر الأقراح',
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Tajawal'),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body:
-      Container(child: Image(
-          image: AssetImage(
-
-              "assets/images/photo_2025-09-14_18-35-42.jpg"))),
-      ));
+    );
   }
 }
