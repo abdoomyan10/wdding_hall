@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
+import 'package:wedding_hall/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:wedding_hall/features/auth/domain/entities/user.dart';
 import 'package:wedding_hall/features/home/dashboard.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -11,17 +14,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthRepositoryImpl _authRepository =
+      GetIt.instance<AuthRepositoryImpl>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _rememberMe = false;
   bool _obscurePassword = true;
 
   void _login() {
-    // هنا يمكن إضافة منطق تسجيل الدخول
-    String username = _usernameController.text.trim();
+    String email = _usernameController.text.trim();
     String password = _passwordController.text.trim();
 
-    if (username.isEmpty || password.isEmpty) {
+    if (email.isEmpty || password.isEmpty) {
       Get.snackbar(
         'خطأ',
         'يرجى ملء جميع الحقول',
@@ -31,7 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
 
-    // محاكاة عملية تسجيل الدخول
     Get.dialog(
       Center(
         child: CircularProgressIndicator(
@@ -41,11 +44,30 @@ class _LoginScreenState extends State<LoginScreen> {
       barrierDismissible: false,
     );
 
-    Future.delayed(Duration(seconds: 2), () {
-      Get.back();
-      // بعد تسجيل الدخول الناجح، الانتقال إلى الصفحة الرئيسية
-      Get.offAll(() => DashboardScreen());
-    });
+    _authRepository
+        .signInWithEmail(email, password)
+        .then((user) {
+          Get.back();
+          if (user != null) {
+            Get.offAll(() => DashboardScreen());
+          } else {
+            Get.snackbar(
+              'خطأ',
+              'فشل تسجيل الدخول. تحقق من البيانات.',
+              backgroundColor: Colors.red,
+              colorText: Colors.white,
+            );
+          }
+        })
+        .catchError((e) {
+          Get.back();
+          Get.snackbar(
+            'خطأ',
+            'حدث خطأ أثناء تسجيل الدخول: ${e.toString()}',
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+          );
+        });
   }
 
   @override
